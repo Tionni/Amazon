@@ -1,3 +1,9 @@
+import { cart, addToCart } from "../data/cart"
+import { products } from "../data/products"
+
+
+
+
 productsHTML = ""
 
 products.forEach((product)=>{
@@ -41,7 +47,7 @@ productsHTML += `
 
         <div class="product-spacer"></div>
 
-        <div class="added-to-cart">
+        <div class="added-to-cart js-added-to-cart-${product.id}">
         <img src="images/icons/checkmark.png">
         Added
         </div>
@@ -54,40 +60,41 @@ productsHTML += `
 
 })
 
+
+
 document.querySelector(".js-products-grid").innerHTML = productsHTML
+
+function updateCartQuantity(){
+    
+    let cartQuantity = 0
+
+    cart.forEach((item)=>{
+     cartQuantity += item.quantity
+    })
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity
+
+
+    const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`)
+    addedMessage.classList.add('js-show-added')
+
+
+    const previousTimeoutId = addedMessageTimeouts[productId]
+    if(previousTimeoutId){
+     clearTimeout(previousTimeoutId)
+    }
+    const timeoutId = setTimeout(()=>{
+     addedMessage.classList.remove('js-show-added')  
+    }, 2000)
+    addedMessageTimeouts[productId] = timeoutId;
+    
+}
+
+const addedMessageTimeouts = {}
 document.querySelectorAll(".js-add-to-cart").forEach((button)=>{
     button.addEventListener('click', ()=>{
        const  { productId } = button.dataset
-       let quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`)
-       const quantity = Number(quantitySelector.value)
-      
-       let matchingItem;
-       cart.forEach((item)=>{
-            if(productId === item.productId){
-                matchingItem = item
-            }
-       })
+       addToCart(productId)
+       updateCartQuantity()
 
-
-
-       if(matchingItem){
-        matchingItem.quantity += quantity
-       }else{
-        cart.push({
-             productId,
-             quantity
-           })
-       }
-
-       let cartQuantity = 0
-
-       cart.forEach((item)=>{
-        cartQuantity += item.quantity
-       })
-       document.querySelector(".js-cart-quantity").innerHTML = cartQuantity
-
-
-       
-       
     })
 })
