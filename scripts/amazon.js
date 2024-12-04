@@ -1,10 +1,10 @@
-import { cart, addToCart } from "../data/cart"
-import { products } from "../data/products"
+import { cart, addToCart } from "../data/cart.js"
+import { products } from "../data/products.js"
 
 
 
 
-productsHTML = ""
+let productsHTML = ""
 
 products.forEach((product)=>{
 productsHTML += `
@@ -64,7 +64,7 @@ productsHTML += `
 
 document.querySelector(".js-products-grid").innerHTML = productsHTML
 
-function updateCartQuantity(){
+function updateCartQuantity(productId){
     
     let cartQuantity = 0
 
@@ -94,7 +94,8 @@ document.querySelectorAll(".js-add-to-cart").forEach((button)=>{
     button.addEventListener('click', ()=>{
        const  { productId } = button.dataset
        addToCart(productId)
-       updateCartQuantity()
+       updateCartQuantity(productId)
 
     })
 })
+console.log("connected")
