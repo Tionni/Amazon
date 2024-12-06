@@ -77,6 +77,7 @@ function updateCartQuantity(productId){
     const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`)
     addedMessage.classList.add('js-show-added')
 
+    
 
     const previousTimeoutId = addedMessageTimeouts[productId]
     if(previousTimeoutId){

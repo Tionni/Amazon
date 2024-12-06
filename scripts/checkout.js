@@ -103,5 +103,18 @@ document.querySelectorAll(".js-delete-link").forEach((link)=>{
     const container = document.querySelector(
       `.js-cart-item-container-${productId}`)
    container.remove()
+   
+   updateCartQuantity()
   })
 })
+
+function updateCartQuantity(){
+  let cartQuantity = 0
+  cart.forEach((item)=>{
+    cartQuantity += item.quantity
+  })
+
+  //display to the dom
+  document.querySelector('.js-header').innerHTML = `${cartQuantity} items`
+}
+updateCartQuantity()
