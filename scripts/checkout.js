@@ -1,4 +1,4 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { calculateCartQuantity, cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 let cartSummaryHTML = ''
@@ -34,9 +34,11 @@ cart.forEach((cartItem) => {
                   <span>
                     Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                   </span>
-                  <span class="update-quantity-link link-primary">
+                  <span class="update-quantity-link link-primary js-update-link" data-product-id=${matchingItem.id}>
                     Update
                   </span>
+                  <input class="quantity-input js-quantity-input-${matchingItem.id}">
+                  <span class="save-quantity-link link-primary js-save-link" data-product-id=${matchingItem.id}>Save</span>
                   <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingItem.id}">
                     Delete
                   </span>
@@ -103,18 +105,39 @@ document.querySelectorAll(".js-delete-link").forEach((link)=>{
     const container = document.querySelector(
       `.js-cart-item-container-${productId}`)
    container.remove()
-   
+
    updateCartQuantity()
   })
 })
 
 function updateCartQuantity(){
-  let cartQuantity = 0
-  cart.forEach((item)=>{
-    cartQuantity += item.quantity
-  })
+  
 
   //display to the dom
-  document.querySelector('.js-header').innerHTML = `${cartQuantity} items`
+  document.querySelector('.js-header').innerHTML = `${calculateCartQuantity()} items`
 }
 updateCartQuantity()
+
+//update link
+document.querySelectorAll(".js-update-link").forEach((link)=>{
+  link.addEventListener("click", ()=>{
+   
+    const productId =link.dataset.productId
+    const container = document.querySelector(
+      `.js-cart-item-container-${productId}`)
+    container.classList.add("is-editing-quantity")
+  })
+ 
+})
+
+document.querySelectorAll(".js-save-link").forEach((link)=>{
+  link.addEventListener('click', ()=>{
+    const productId =link.dataset.productId
+
+    
+  const container = document.querySelector(
+    `.js-cart-item-container-${productId}`)
+  container.classList.remove("is-editing-quantity")
+  })
+  
+})

@@ -1,4 +1,4 @@
-import { cart, addToCart } from "../data/cart.js"
+import { cart, addToCart, calculateCartQuantity } from "../data/cart.js"
 import { products } from "../data/products.js"
 
 
@@ -66,18 +66,14 @@ document.querySelector(".js-products-grid").innerHTML = productsHTML
 
 function updateCartQuantity(productId){
     
-    let cartQuantity = 0
-
-    cart.forEach((item)=>{
-     cartQuantity += item.quantity
-    })
-    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity
+    
+    document.querySelector(".js-cart-quantity").innerHTML = calculateCartQuantity()
 
 
     const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`)
     addedMessage.classList.add('js-show-added')
 
-    
+
 
     const previousTimeoutId = addedMessageTimeouts[productId]
     if(previousTimeoutId){
@@ -89,6 +85,9 @@ function updateCartQuantity(productId){
     addedMessageTimeouts[productId] = timeoutId;
     
 }
+
+
+    document.querySelector(".js-cart-quantity").innerHTML = calculateCartQuantity()
 
 const addedMessageTimeouts = {}
 document.querySelectorAll(".js-add-to-cart").forEach((button)=>{
