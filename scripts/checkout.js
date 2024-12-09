@@ -2,6 +2,7 @@ import {
    calculateCartQuantity,
    cart, 
    removeFromCart, 
+   updateDeliveryOption, 
    updateQuantity 
   } from "../data/cart.js";
 import { products } from "../data/products.js";
@@ -94,7 +95,9 @@ function deliveryOptionsHTML(matchingItem, cartItem){
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId
 
     html +=`
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option"
+      data-product-id="${matchingItem.id}"
+      data-delivery-option-id="${deliveryOption.id}">
         <input type="radio"
          ${isChecked ? 'checked': ""}
           class="delivery-option-input"
@@ -114,6 +117,8 @@ function deliveryOptionsHTML(matchingItem, cartItem){
 }
 
 
+
+
 document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML
 document.querySelectorAll(".js-delete-link").forEach((link)=>{
   link.addEventListener('click', ()=>{
@@ -125,6 +130,13 @@ document.querySelectorAll(".js-delete-link").forEach((link)=>{
    container.remove()
 
    updateCartQuantity()
+  })
+})
+document.querySelectorAll('.js-delivery-option').forEach((element)=>{
+  element.addEventListener('click', ()=>{
+    const {productId, deliveryOptionId} = element.dataset
+    console.log(productId, deliveryOptionId);
+    updateDeliveryOption(productId, deliveryOptionId)
   })
 })
 
