@@ -9,7 +9,7 @@ import {
  import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
  import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
  import { formatCurrency } from "../utils/money.js";
- 
+ import { renderPaymentSummary } from "./paymentSummary.js";
 export function renderOrderSummary(){
    let cartSummaryHTML = ''
  
@@ -121,6 +121,7 @@ export function renderOrderSummary(){
      container.remove()
  
      updateCartQuantity()
+     renderPaymentSummary()
      })
    })
    document.querySelectorAll('.js-delivery-option').forEach((element)=>{
@@ -129,6 +130,7 @@ export function renderOrderSummary(){
        console.log(productId, deliveryOptionId);
        updateDeliveryOption(productId, deliveryOptionId)
        renderOrderSummary()
+       renderPaymentSummary()
      })
    })
  
