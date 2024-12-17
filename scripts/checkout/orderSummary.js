@@ -109,25 +109,15 @@ export function renderOrderSummary(){
  
  
  
- 
+    // added the generated html to dom
    document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML
-   document.querySelectorAll(".js-delete-link").forEach((link)=>{
-     link.addEventListener('click', ()=>{
-       const productId = link.dataset.productId
-       console.log(productId)
-       removeFromCart(productId);
-       const container = document.querySelector(
-         `.js-cart-item-container-${productId}`)
-     container.remove()
- 
-     updateCartQuantity()
-     renderPaymentSummary()
-     })
-   })
+
+  
+
+
    document.querySelectorAll('.js-delivery-option').forEach((element)=>{
      element.addEventListener('click', ()=>{
        const {productId, deliveryOptionId} = element.dataset
-       console.log(productId, deliveryOptionId);
        updateDeliveryOption(productId, deliveryOptionId)
        renderOrderSummary()
        renderPaymentSummary()
@@ -180,5 +170,24 @@ export function renderOrderSummary(){
      
      
    })
+
+    //remove from cart after clicking deleting
+    document.querySelectorAll(".js-delete-link").forEach((link)=>{
+      link.addEventListener('click', ()=>{
+        const productId = link.dataset.productId
+        
+        removeFromCart(productId);
+        const container = document.querySelector(
+          `.js-cart-item-container-${productId}`)
+      container.remove()
+      
+      //renderOrderSummary()
+       
+       updateCartQuantity()
+       
+       renderPaymentSummary()
+       
+      })
+    })
  }
  
