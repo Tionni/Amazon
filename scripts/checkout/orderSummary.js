@@ -10,6 +10,7 @@ import {
  import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
  import { formatCurrency } from "../utils/money.js";
  import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 export function renderOrderSummary(){
    let cartSummaryHTML = ''
  
@@ -52,7 +53,8 @@ export function renderOrderSummary(){
                      </span>
                      <input class="quantity-input js-quantity-input-${matchingItem.id}">
                      <span class="save-quantity-link link-primary js-save-link" data-product-id=${matchingItem.id}>Save</span>
-                     <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingItem.id}">
+                     <span class="delete-quantity-link link-primary js-delete-link"
+                    data-product-id="${matchingItem.id}">
                        Delete
                      </span>
                    </div>
@@ -114,7 +116,7 @@ export function renderOrderSummary(){
 
   
 
-
+ //chose the delivery option
    document.querySelectorAll('.js-delivery-option').forEach((element)=>{
      element.addEventListener('click', ()=>{
        const {productId, deliveryOptionId} = element.dataset
@@ -177,14 +179,14 @@ export function renderOrderSummary(){
         const productId = link.dataset.productId
         
         removeFromCart(productId);
-        const container = document.querySelector(
-          `.js-cart-item-container-${productId}`)
-      container.remove()
+      //   const container = document.querySelector(
+      //     `.js-cart-item-container-${productId}`)
+      // container.remove()
       
-      //renderOrderSummary()
-       
-       updateCartQuantity()
-       
+      
+      renderOrderSummary()
+      
+       renderCheckoutHeader()
        renderPaymentSummary()
        
       })
