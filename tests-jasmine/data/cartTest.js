@@ -3,8 +3,8 @@ import { addToCart, loadFromStorage, cart } from "../../data/cart.js";
 describe("test suite: AddToCart", ()=>{
 
 
-
     it('adds an exiting product to the cart', ()=>{
+       
         spyOn(localStorage, 'setItem')
 
         spyOn(localStorage, 'getItem').and.callFake(()=>{
@@ -27,6 +27,7 @@ describe("test suite: AddToCart", ()=>{
 
     })
     it('adds a new product to the cart', ()=>{
+       
         spyOn(localStorage, 'setItem')
         //create a mock
         spyOn(localStorage, 'getItem').and.callFake(()=>{
