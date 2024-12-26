@@ -60,3 +60,7 @@ describe("test suite: AddToCart", ()=>{
           ]))
     })
 })
+
+describe("test suite: removeFromCart", ()=>{
+    beforeEach(())
+})
