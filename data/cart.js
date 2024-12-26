@@ -22,9 +22,9 @@ function saveToStorage(){
     localStorage.setItem('cart', JSON.stringify(cart))
 }
 export function addToCart(productId){
-    let quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`)
-    const quantity = Number(quantitySelector.value)
-//    let quantity = 1
+    // let quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`)
+    // const quantity = Number(quantitySelector.value)
+   let quantity = 1
     let matchingItem;
     cart.forEach((item)=>{
          if(productId === item.productId){
