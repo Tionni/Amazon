@@ -1,4 +1,5 @@
-import { getDeliveryOption } from "./deliveryOptions.js"
+import { validDeliveryOption } from "./deliveryOptions.js"
+
 
 export let cart
 
@@ -82,6 +83,7 @@ export function updateQuantity(productId, newQuantity){
 export function updateDeliveryOption(productId, deliveryOptionId){
     
     let matchingItem;
+    
    
     cart.forEach((item)=>{
          if(productId === item.productId){
@@ -90,6 +92,9 @@ export function updateDeliveryOption(productId, deliveryOptionId){
     })
 
     if(!matchingItem){
+        return
+    }
+    if(!validDeliveryOption(deliveryOptionId)) {
         return
     }
 
