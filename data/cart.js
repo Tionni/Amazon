@@ -1,3 +1,5 @@
+import { getDeliveryOption } from "./deliveryOptions.js"
+
 export let cart
 
 loadFromStorage()
@@ -78,12 +80,19 @@ export function updateQuantity(productId, newQuantity){
 }
 
 export function updateDeliveryOption(productId, deliveryOptionId){
+    
     let matchingItem;
+   
     cart.forEach((item)=>{
          if(productId === item.productId){
              matchingItem = item
          }
     })
+
+    if(!matchingItem){
+        return
+    }
+
     matchingItem.deliveryOptionId = deliveryOptionId
     saveToStorage()
 }
