@@ -6,14 +6,26 @@ import {  loadProductsFetch } from "../data/products.js";
 // import '../data/car.js'
 // import '../data/backend-practice.js'
 
+//async makes a function return a promise
+//await let us write asynchronous code like normal code
 
-
-    loadProductsFetch().then(()=> {
+async function loadPage(){
+   
+    await loadProductsFetch()
     renderCheckoutHeader()
     renderOrderSummary()
     renderPaymentSummary()
     
-})
+}
+loadPage()
+
+/*
+    loadProductsFetch().then(()=> {
+    renderCheckoutHeader()
+    renderOrderSummary()
+    renderPaymentSummary()
+    })
+    */
 
 
 /*
