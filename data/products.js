@@ -52,6 +52,23 @@ class Clothing extends product{
   }
 }
 
+class Appliance extends product {
+  instructionsLink
+  WarrantyLink
+
+  constructor(productDetails){
+    super(productDetails)
+    this.instructionsLink = productDetails.instructionsLink
+    this.WarrantyLink = productDetails.WarrantyLink
+  }
+  extraInfoHTML(){
+    return `<a href="${this.instructionsLink}" target="_blank">instruction</a>
+    <a href="${this.WarrantyLink}" target="_blank">warranty</a>`
+  }
+
+}
+
+
 /*
  
  export const products = [
@@ -729,12 +746,19 @@ export  function loadProductsFetch(){
   const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
     return response.json()
   }).then((productsData)=>{
+    productsData[3].type = "Appliance"
+    productsData[3].instructionsLink = "/images/appliance-instructions.png"
+    productsData[3].WarrantyLink = "/images/appliance-warranty.png"
     products = productsData.map((productDetails)=>{
       if(productDetails.type === 'clothing'){
         return new Clothing(productDetails) 
       }
+      if(productDetails.type === "Appliance"){
+        return new Appliance(productDetails)
+      }
       return new product(productDetails)
     }) 
+    console.log(productsData)
     console.log('load products')
     
   })/*.catch(()=>{
