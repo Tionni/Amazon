@@ -19,7 +19,14 @@ function renderProductsGrid(){
     //filter the products that match the search
     if(search){
         filteredProducts = products.filter((product)=>{
-            return product.name.toLowerCase().includes(search)
+
+            let matchingKeyword = false
+            product.keywords.forEach((keyword) =>{
+                if (keyword.toLowerCase().includes(search.toLowerCase())){
+                    matchingKeyword = true
+                }
+            })
+            return matchingKeyword || product.name.toLowerCase().includes (search.toLocaleLowerCase())
         })
     }
     filteredProducts.forEach((product)=>{
