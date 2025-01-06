@@ -24,7 +24,7 @@ function renderOrderPage(){
                 <div class="order-header-left-section">
                   <div class="order-date">
                     <div class="order-header-label">Order Placed:</div>
-                    <div>${dayjs(order.orderTime).format('MMMM, DD') }</div>
+                    <div>${dayjs(order.orderTime).format('MMMM, D') }</div>
                   </div>
                   <div class="order-total">
                     <div class="order-header-label">Total:</div>
@@ -40,14 +40,14 @@ function renderOrderPage(){
     
               <div class="order-details-grid">
                 
-                ${displayProductsInCart(productsInOrder)}
+                ${displayProductsInCart(productsInOrder, order)}
                 
               </div>
             </div>`
         
     });
     document.querySelector('.js-orders-grid').innerHTML = orderHTML
-     function displayProductsInCart(orderProducts){
+     function displayProductsInCart(orderProducts, order){
         let html = ''
         orderProducts.forEach((product)=>{
             const productId = product.productId
@@ -75,7 +75,7 @@ function renderOrderPage(){
           </div>
     
           <div class="product-actions">
-            <a href="tracking.html">
+            <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
               <button class="track-package-button button-secondary">
                 Track package
               </button>
